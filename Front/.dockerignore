@@ -1,0 +1,12 @@
+# Las dependencias se instalan dentro de la imagen (Linux), no se copian del host.
+node_modules
+dist
+
+# Configuración local y secretos: nunca dentro de la imagen.
+.env
+.env.*
+!.env.example
+
+*.log
+Dockerfile
+.dockerignore

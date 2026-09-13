@@ -1,0 +1,8 @@
+
+.benefits {
+    border-left: 4px solid var(--oliva);
+}
+
+.benefits li {
+    color: var(--tinta-suave);
+}

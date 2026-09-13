@@ -1,0 +1,138 @@
+.product-card {
+    padding: 12px;
+}
+
+.product-card figure {
+    position: relative;
+    margin: 0 0 10px;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    background-color: var(--fila-alterna);
+    border: 1px solid var(--borde);
+    border-radius: 3px;
+}
+
+.cover-link {
+    display: block;
+}
+
+.product-price-badge {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    margin: 0;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--tinta);
+    background-color: var(--papel);
+    border: 1px solid var(--borde);
+    border-radius: 3px;
+}
+
+.product-title {
+    margin-bottom: 2px;
+    font-size: 1.05em;
+}
+
+.product-card p {
+    font-size: 15px;
+    color: var(--tinta-suave);
+}
+
+.product-author {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.product-description,
+.product-card ul,
+.product-card .product-price {
+    display: none;
+}
+
+.product-card ul {
+    margin: 0 0 16px;
+    padding: 12px 0 0;
+    list-style: none;
+    font-size: 14px;
+    border-top: 1px solid var(--borde);
+}
+
+.product-card ul li {
+    margin-bottom: 4px;
+}
+
+.product-card .product-price {
+    margin: 0 0 16px;
+    padding-top: 12px;
+    font-size: 16px;
+    color: var(--terracota);
+    border-top: 1px solid var(--borde);
+}
+
+.product-actions {
+    margin: 0;
+    text-align: center;
+}
+
+.product-actions .btn {
+    width: 100%;
+    padding: 9px 10px;
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+
+    .product-card {
+        padding: 18px;
+    }
+
+    .product-card figure {
+        margin: 0 0 14px;
+        text-align: center;
+    }
+
+    .product-card img {
+        width: 140px;
+        height: 210px;
+        margin: 0 auto;
+        aspect-ratio: auto;
+    }
+
+    .product-price-badge {
+        display: none;
+    }
+
+    .product-description.text-short,
+    .product-card ul,
+    .product-card .product-price {
+        display: block;
+    }
+
+    .product-actions {
+        text-align: left;
+    }
+
+    .product-actions .btn {
+        width: auto;
+        padding: 11px 20px;
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-description.text-short {
+        display: none;
+    }
+
+    .product-description.text-long {
+        display: block;
+    }
+}

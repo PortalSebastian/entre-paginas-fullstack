@@ -1,0 +1,108 @@
+
+.navbar ul {
+    display: grid;
+    grid-template-columns: 48% 48%;
+    column-gap: 4%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar li {
+    margin: 0;
+}
+
+.navbar a {
+    display: block;
+    padding: 8px 0;
+    font-size: 15px;
+    color: var(--papel);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    border-top: 1px solid var(--linea-clara);
+    transition: color 0.3s;
+}
+
+.navbar a:hover,
+.navbar a:focus {
+    color: var(--blanco);
+}
+
+
+.cart-badge {
+    display: inline-block;
+    min-width: 20px;
+    margin-left: 6px;
+    padding: 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    color: var(--blanco);
+    background-color: var(--terracota);
+    border-radius: 10px;
+}
+
+.navbar .sesion-usuario {
+    display: flex;
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 0;
+    border-top: 1px solid var(--linea-clara);
+}
+
+.saludo-usuario {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blanco);
+}
+
+.enlace-sesion {
+    padding: 0;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--papel);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.enlace-sesion:hover,
+.enlace-sesion:focus {
+    color: var(--blanco);
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        padding: 18px 0;
+    }
+
+    .navbar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+    }
+
+    .navbar a {
+        display: inline-block;
+        padding: 6px 0;
+        border-top: 0;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.3s, color 0.3s;
+    }
+
+    .navbar a:hover,
+    .navbar a:focus {
+        border-bottom-color: var(--terracota);
+    }
+
+    .navbar .sesion-usuario {
+        padding: 6px 0;
+        border-top: 0;
+    }
+}

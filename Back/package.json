@@ -1,0 +1,40 @@
+{
+  "name": "entre-paginas-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "db:migrate": "sequelize-cli db:migrate --config config/sequelize-cli.cjs --migrations-path migrations",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo --config config/sequelize-cli.cjs --migrations-path migrations",
+    "db:seed": "sequelize-cli db:seed --seed 202609030001-public-data.cjs --config config/sequelize-cli.cjs --seeders-path seeders",
+    "seed:admin": "sequelize-cli db:seed --seed 202609030002-admin.cjs --config config/sequelize-cli.cjs --seeders-path seeders",
+    "test": "npm run test:unit && npm run test:http",
+    "test:unit": "node --test \"tests/unit/*.test.js\"",
+    "test:http": "node --test \"tests/integration/http-api.test.js\"",
+    "test:integration": "node scripts/run-db-tests.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.3",
+    "sequelize": "^6.37.8"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.5",
+    "supertest": "^7.2.2"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}

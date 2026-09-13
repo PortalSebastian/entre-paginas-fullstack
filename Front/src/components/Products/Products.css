@@ -1,0 +1,50 @@
+.empty-products {
+    margin: 0 0 24px;
+    padding: 24px 18px;
+    text-align: center;
+    color: var(--tinta-suave);
+    background-color: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 3px;
+}
+
+/* Busqueda de catalogo (Actividad 4: demostracion de consulta parametrizada). */
+.product-search {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 1rem 0;
+}
+
+.product-search input[type="search"] {
+    flex: 1 1 18rem;
+    padding: .55rem .75rem;
+    border: 1px solid #c9c2b8;
+    border-radius: .375rem;
+    font: inherit;
+}
+
+.product-search button {
+    padding: .55rem 1.1rem;
+    border: none;
+    border-radius: .375rem;
+    background: #6b4f3a;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+}
+
+.product-search button.secondary {
+    background: transparent;
+    color: #6b4f3a;
+    border: 1px solid #c9c2b8;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}

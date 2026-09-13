@@ -1,0 +1,10 @@
+# Secretos y configuración local: nunca deben entrar al repositorio.
+.env
+.env.*
+!.env.example
+!.env.test.example
+
+node_modules/
+dist/
+coverage/
+*.log

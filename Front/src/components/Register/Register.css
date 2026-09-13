@@ -1,0 +1,28 @@
+@media (min-width: 768px) {
+    .form-registro {
+        display: grid;
+        grid-template-columns: 48% 48%;
+        column-gap: 4%;
+    }
+
+    .form-registro p {
+        margin: 0 0 18px;
+    }
+
+    .form-registro fieldset,
+    .form-registro .ancho-total {
+        grid-column: 1 / -1;
+    }
+
+    .opciones-linea {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 28px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .formulario-ancho {
+        width: 780px;
+    }
+}
