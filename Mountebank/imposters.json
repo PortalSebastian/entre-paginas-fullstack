@@ -1,0 +1,2553 @@
+{
+  "imposters": [
+    {
+      "port": 3001,
+      "protocol": "http",
+      "name": "Entre Páginas - API principal - Actividad 4",
+      "stubs": [
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "OPTIONS"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 204,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": ""
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/register"
+              }
+            },
+            {
+              "equals": {
+                "headers": {
+                  "x-csrf-token": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_MISSING",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/register"
+              }
+            },
+            {
+              "not": {
+                "equals": {
+                  "headers": {
+                    "x-csrf-token": "csrf-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_INVALID",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/login"
+              }
+            },
+            {
+              "equals": {
+                "headers": {
+                  "x-csrf-token": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_MISSING",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/login"
+              }
+            },
+            {
+              "not": {
+                "equals": {
+                  "headers": {
+                    "x-csrf-token": "csrf-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_INVALID",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/refresh"
+              }
+            },
+            {
+              "equals": {
+                "headers": {
+                  "x-csrf-token": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_MISSING",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/refresh"
+              }
+            },
+            {
+              "not": {
+                "equals": {
+                  "headers": {
+                    "x-csrf-token": "csrf-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_INVALID",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/logout"
+              }
+            },
+            {
+              "equals": {
+                "headers": {
+                  "x-csrf-token": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_MISSING",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/logout"
+              }
+            },
+            {
+              "not": {
+                "equals": {
+                  "headers": {
+                    "x-csrf-token": "csrf-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_INVALID",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            },
+            {
+              "equals": {
+                "headers": {
+                  "x-csrf-token": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_MISSING",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            },
+            {
+              "not": {
+                "equals": {
+                  "headers": {
+                    "x-csrf-token": "csrf-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 403,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "CSRF_TOKEN_INVALID",
+                    "message": "A valid CSRF token is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/health"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "status": "ok"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/csrf"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin",
+                  "Set-Cookie": "csrf_secret=csrf-secret-demo; Path=/; HttpOnly; SameSite=Lax"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "csrfToken": "csrf-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/categories"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 1,
+                      "slug": "men",
+                      "name": "Hombres"
+                    },
+                    {
+                      "id": 2,
+                      "slug": "women",
+                      "name": "Mujeres"
+                    },
+                    {
+                      "id": 3,
+                      "slug": "kids",
+                      "name": "Niños"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/shipping-methods"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 1,
+                      "code": "standard",
+                      "name": "Envío estándar",
+                      "price": 10
+                    },
+                    {
+                      "id": 2,
+                      "code": "express",
+                      "name": "Envío expreso",
+                      "price": 18
+                    },
+                    {
+                      "id": 3,
+                      "code": "pickup",
+                      "name": "Recojo en tienda",
+                      "price": 0
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products"
+              }
+            },
+            {
+              "equals": {
+                "query": {
+                  "category": "men"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 101,
+                      "title": "El viejo y el mar",
+                      "author": "Ernest Hemingway",
+                      "price": 42,
+                      "category": "men",
+                      "genre": "Narrativa clásica",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Un pescador y un pez enorme, en una lucha sobre el esfuerzo y la dignidad.",
+                      "description": "La lucha de un pescador contra un enorme pez se convierte en una reflexión sobre el esfuerzo y la dignidad.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780684801223-M.jpg",
+                      "stock": 20
+                    },
+                    {
+                      "id": 102,
+                      "title": "1984",
+                      "author": "George Orwell",
+                      "price": 39.9,
+                      "category": "men",
+                      "genre": "Ciencia ficción",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Una distopía sobre el poder, la vigilancia y la libertad.",
+                      "description": "Una novela distópica acerca del poder, la vigilancia y la libertad individual.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg",
+                      "stock": 20
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products"
+              }
+            },
+            {
+              "equals": {
+                "query": {
+                  "category": "women"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 103,
+                      "title": "Orgullo y prejuicio",
+                      "author": "Jane Austen",
+                      "price": 45,
+                      "category": "women",
+                      "genre": "Romance clásico",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Las primeras impresiones no siempre dicen la verdad.",
+                      "description": "Elizabeth Bennet y el señor Darcy descubren que las primeras impresiones no siempre dicen la verdad.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780141439518-M.jpg",
+                      "stock": 20
+                    },
+                    {
+                      "id": 104,
+                      "title": "Mujercitas",
+                      "author": "Louisa May Alcott",
+                      "price": 44.9,
+                      "category": "women",
+                      "genre": "Novela clásica",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Cuatro hermanas crecen y persiguen sus sueños juntas.",
+                      "description": "Cuatro hermanas crecen, persiguen sus sueños y enfrentan juntas los cambios de la vida.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780147514011-M.jpg",
+                      "stock": 20
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products"
+              }
+            },
+            {
+              "equals": {
+                "query": {
+                  "category": "kids"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 105,
+                      "title": "El principito",
+                      "author": "Antoine de Saint-Exupéry",
+                      "price": 35,
+                      "category": "kids",
+                      "genre": "Literatura infantil",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Un viajero pequeño y grandes enseñanzas sobre la amistad.",
+                      "description": "Un pequeño viajero conoce distintos mundos y comparte valiosas enseñanzas sobre la amistad.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780156012195-M.jpg",
+                      "stock": 2
+                    },
+                    {
+                      "id": 106,
+                      "title": "Alicia en el país de las maravillas",
+                      "author": "Lewis Carroll",
+                      "price": 38.5,
+                      "category": "kids",
+                      "genre": "Fantasía infantil",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Un conejo blanco y un mundo fantástico por descubrir.",
+                      "description": "Alicia sigue a un conejo blanco y entra en un mundo fantástico lleno de personajes sorprendentes.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780141439761-M.jpg",
+                      "stock": 20
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products"
+              }
+            },
+            {
+              "equals": {
+                "query": {
+                  "category": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 101,
+                      "title": "El viejo y el mar",
+                      "author": "Ernest Hemingway",
+                      "price": 42,
+                      "category": "men",
+                      "genre": "Narrativa clásica",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Un pescador y un pez enorme, en una lucha sobre el esfuerzo y la dignidad.",
+                      "description": "La lucha de un pescador contra un enorme pez se convierte en una reflexión sobre el esfuerzo y la dignidad.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780684801223-M.jpg",
+                      "stock": 20
+                    },
+                    {
+                      "id": 102,
+                      "title": "1984",
+                      "author": "George Orwell",
+                      "price": 39.9,
+                      "category": "men",
+                      "genre": "Ciencia ficción",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Una distopía sobre el poder, la vigilancia y la libertad.",
+                      "description": "Una novela distópica acerca del poder, la vigilancia y la libertad individual.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg",
+                      "stock": 20
+                    },
+                    {
+                      "id": 103,
+                      "title": "Orgullo y prejuicio",
+                      "author": "Jane Austen",
+                      "price": 45,
+                      "category": "women",
+                      "genre": "Romance clásico",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Las primeras impresiones no siempre dicen la verdad.",
+                      "description": "Elizabeth Bennet y el señor Darcy descubren que las primeras impresiones no siempre dicen la verdad.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780141439518-M.jpg",
+                      "stock": 20
+                    },
+                    {
+                      "id": 104,
+                      "title": "Mujercitas",
+                      "author": "Louisa May Alcott",
+                      "price": 44.9,
+                      "category": "women",
+                      "genre": "Novela clásica",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Cuatro hermanas crecen y persiguen sus sueños juntas.",
+                      "description": "Cuatro hermanas crecen, persiguen sus sueños y enfrentan juntas los cambios de la vida.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780147514011-M.jpg",
+                      "stock": 20
+                    },
+                    {
+                      "id": 105,
+                      "title": "El principito",
+                      "author": "Antoine de Saint-Exupéry",
+                      "price": 35,
+                      "category": "kids",
+                      "genre": "Literatura infantil",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Un viajero pequeño y grandes enseñanzas sobre la amistad.",
+                      "description": "Un pequeño viajero conoce distintos mundos y comparte valiosas enseñanzas sobre la amistad.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780156012195-M.jpg",
+                      "stock": 2
+                    },
+                    {
+                      "id": 106,
+                      "title": "Alicia en el país de las maravillas",
+                      "author": "Lewis Carroll",
+                      "price": 38.5,
+                      "category": "kids",
+                      "genre": "Fantasía infantil",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Un conejo blanco y un mundo fantástico por descubrir.",
+                      "description": "Alicia sigue a un conejo blanco y entra en un mundo fantástico lleno de personajes sorprendentes.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780141439761-M.jpg",
+                      "stock": 20
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/search"
+              }
+            },
+            {
+              "equals": {
+                "query": {
+                  "q": "1984"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 102,
+                      "title": "1984",
+                      "author": "George Orwell",
+                      "price": 39.9,
+                      "category": "men",
+                      "genre": "Ciencia ficción",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Una distopía sobre el poder, la vigilancia y la libertad.",
+                      "description": "Una novela distópica acerca del poder, la vigilancia y la libertad individual.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg",
+                      "stock": 20
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/search"
+              }
+            },
+            {
+              "equals": {
+                "query": {
+                  "q": "Orwell"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 102,
+                      "title": "1984",
+                      "author": "George Orwell",
+                      "price": 39.9,
+                      "category": "men",
+                      "genre": "Ciencia ficción",
+                      "format": "Tapa blanda",
+                      "shortDescription": "Una distopía sobre el poder, la vigilancia y la libertad.",
+                      "description": "Una novela distópica acerca del poder, la vigilancia y la libertad individual.",
+                      "cover": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg",
+                      "stock": 20
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/search"
+              }
+            },
+            {
+              "equals": {
+                "query": {
+                  "q": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 422,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "The submitted data is invalid.",
+                    "details": [
+                      {
+                        "field": "q",
+                        "message": "Search term is required."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/search"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/101"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 101,
+                    "title": "El viejo y el mar",
+                    "author": "Ernest Hemingway",
+                    "price": 42,
+                    "category": "men",
+                    "genre": "Narrativa clásica",
+                    "format": "Tapa blanda",
+                    "shortDescription": "Un pescador y un pez enorme, en una lucha sobre el esfuerzo y la dignidad.",
+                    "description": "La lucha de un pescador contra un enorme pez se convierte en una reflexión sobre el esfuerzo y la dignidad.",
+                    "cover": "https://covers.openlibrary.org/b/isbn/9780684801223-M.jpg",
+                    "stock": 20
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/102"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 102,
+                    "title": "1984",
+                    "author": "George Orwell",
+                    "price": 39.9,
+                    "category": "men",
+                    "genre": "Ciencia ficción",
+                    "format": "Tapa blanda",
+                    "shortDescription": "Una distopía sobre el poder, la vigilancia y la libertad.",
+                    "description": "Una novela distópica acerca del poder, la vigilancia y la libertad individual.",
+                    "cover": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg",
+                    "stock": 20
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/103"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 103,
+                    "title": "Orgullo y prejuicio",
+                    "author": "Jane Austen",
+                    "price": 45,
+                    "category": "women",
+                    "genre": "Romance clásico",
+                    "format": "Tapa blanda",
+                    "shortDescription": "Las primeras impresiones no siempre dicen la verdad.",
+                    "description": "Elizabeth Bennet y el señor Darcy descubren que las primeras impresiones no siempre dicen la verdad.",
+                    "cover": "https://covers.openlibrary.org/b/isbn/9780141439518-M.jpg",
+                    "stock": 20
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/104"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 104,
+                    "title": "Mujercitas",
+                    "author": "Louisa May Alcott",
+                    "price": 44.9,
+                    "category": "women",
+                    "genre": "Novela clásica",
+                    "format": "Tapa blanda",
+                    "shortDescription": "Cuatro hermanas crecen y persiguen sus sueños juntas.",
+                    "description": "Cuatro hermanas crecen, persiguen sus sueños y enfrentan juntas los cambios de la vida.",
+                    "cover": "https://covers.openlibrary.org/b/isbn/9780147514011-M.jpg",
+                    "stock": 20
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/105"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 105,
+                    "title": "El principito",
+                    "author": "Antoine de Saint-Exupéry",
+                    "price": 35,
+                    "category": "kids",
+                    "genre": "Literatura infantil",
+                    "format": "Tapa blanda",
+                    "shortDescription": "Un viajero pequeño y grandes enseñanzas sobre la amistad.",
+                    "description": "Un pequeño viajero conoce distintos mundos y comparte valiosas enseñanzas sobre la amistad.",
+                    "cover": "https://covers.openlibrary.org/b/isbn/9780156012195-M.jpg",
+                    "stock": 2
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/products/106"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 106,
+                    "title": "Alicia en el país de las maravillas",
+                    "author": "Lewis Carroll",
+                    "price": 38.5,
+                    "category": "kids",
+                    "genre": "Fantasía infantil",
+                    "format": "Tapa blanda",
+                    "shortDescription": "Un conejo blanco y un mundo fantástico por descubrir.",
+                    "description": "Alicia sigue a un conejo blanco y entra en un mundo fantástico lleno de personajes sorprendentes.",
+                    "cover": "https://covers.openlibrary.org/b/isbn/9780141439761-M.jpg",
+                    "stock": 20
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET"
+              }
+            },
+            {
+              "matches": {
+                "path": "^/api/v1/products/[^/]+$"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 404,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "PRODUCT_NOT_FOUND",
+                    "message": "Product not found.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/register"
+              }
+            },
+            {
+              "equals": {
+                "body": {
+                  "email": "registrado@example.com"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 409,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "EMAIL_ALREADY_REGISTERED",
+                    "message": "The email is already registered.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/register"
+              }
+            },
+            {
+              "equals": {
+                "body": {
+                  "termsAccepted": false
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 422,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "The submitted data is invalid.",
+                    "details": [
+                      {
+                        "field": "termsAccepted",
+                        "message": "Terms must be accepted."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/register"
+              }
+            },
+            {
+              "deepEquals": {
+                "body": {
+                  "firstName": "Ana",
+                  "lastName": "Torres",
+                  "email": "ana.torres@example.com",
+                  "phone": "999888777",
+                  "birthDate": "1998-04-15",
+                  "readingPreference": "Narrativa",
+                  "newsletterOptIn": true,
+                  "password": "Lectura2026!",
+                  "termsAccepted": true
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 201,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 1,
+                    "firstName": "Ana",
+                    "lastName": "Torres",
+                    "email": "ana.torres@example.com",
+                    "phone": "999888777",
+                    "birthDate": "1998-04-15",
+                    "readingPreference": "Narrativa",
+                    "newsletterOptIn": true,
+                    "role": "CUSTOMER",
+                    "isActive": true
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/login"
+              }
+            },
+            {
+              "deepEquals": {
+                "body": {}
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 422,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "The submitted data is invalid.",
+                    "details": [
+                      {
+                        "field": "email",
+                        "message": "Email is required."
+                      },
+                      {
+                        "field": "password",
+                        "message": "Password is required."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/login"
+              }
+            },
+            {
+              "equals": {
+                "body": {
+                  "email": "ana.torres@example.com",
+                  "password": "Lectura2026!"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin",
+                  "Set-Cookie": "refresh_token=refresh-entre-paginas-demo; Path=/api/v1/auth; HttpOnly; SameSite=Lax"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "user": {
+                      "id": 1,
+                      "firstName": "Ana",
+                      "lastName": "Torres",
+                      "email": "ana.torres@example.com",
+                      "phone": "999888777",
+                      "birthDate": "1998-04-15",
+                      "readingPreference": "Narrativa",
+                      "newsletterOptIn": true,
+                      "role": "CUSTOMER",
+                      "isActive": true
+                    },
+                    "accessToken": "access-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/login"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 401,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_CREDENTIALS",
+                    "message": "Invalid email or password.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/refresh"
+              }
+            },
+            {
+              "matches": {
+                "headers": {
+                  "cookie": "(^|;\\s*)refresh_token=refresh-entre-paginas-demo(;|$)"
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin",
+                  "Set-Cookie": "refresh_token=refresh-entre-paginas-demo; Path=/api/v1/auth; HttpOnly; SameSite=Lax"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "user": {
+                      "id": 1,
+                      "firstName": "Ana",
+                      "lastName": "Torres",
+                      "email": "ana.torres@example.com",
+                      "phone": "999888777",
+                      "birthDate": "1998-04-15",
+                      "readingPreference": "Narrativa",
+                      "newsletterOptIn": true,
+                      "role": "CUSTOMER",
+                      "isActive": true
+                    },
+                    "accessToken": "access-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/refresh"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 401,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_REFRESH_TOKEN",
+                    "message": "The session cannot be renewed.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/logout"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 204,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin",
+                  "Set-Cookie": "refresh_token=; Max-Age=0; Path=/api/v1/auth; HttpOnly; SameSite=Lax"
+                },
+                "body": ""
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET"
+              }
+            },
+            {
+              "matches": {
+                "path": "^/api/v1/auth/me$"
+              }
+            },
+            {
+              "equals": {
+                "headers": {
+                  "authorization": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 401,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "AUTHENTICATION_REQUIRED",
+                    "message": "Authentication is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET"
+              }
+            },
+            {
+              "matches": {
+                "path": "^/api/v1/auth/me$"
+              }
+            },
+            {
+              "not": {
+                "equals": {
+                  "headers": {
+                    "authorization": "Bearer access-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 401,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_ACCESS_TOKEN",
+                    "message": "Authentication is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET"
+              }
+            },
+            {
+              "matches": {
+                "path": "^/api/v1/orders/[^/]+$"
+              }
+            },
+            {
+              "equals": {
+                "headers": {
+                  "authorization": ""
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 401,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "AUTHENTICATION_REQUIRED",
+                    "message": "Authentication is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET"
+              }
+            },
+            {
+              "matches": {
+                "path": "^/api/v1/orders/[^/]+$"
+              }
+            },
+            {
+              "not": {
+                "equals": {
+                  "headers": {
+                    "authorization": "Bearer access-entre-paginas-demo"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 401,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_ACCESS_TOKEN",
+                    "message": "Authentication is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/auth/me"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 1,
+                    "firstName": "Ana",
+                    "lastName": "Torres",
+                    "email": "ana.torres@example.com",
+                    "phone": "999888777",
+                    "birthDate": "1998-04-15",
+                    "readingPreference": "Narrativa",
+                    "newsletterOptIn": true,
+                    "role": "CUSTOMER",
+                    "isActive": true
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "equals": {
+                      "headers": {
+                        "authorization": ""
+                      }
+                    }
+                  },
+                  {
+                    "equals": {
+                      "headers": {
+                        "authorization": "Bearer access-entre-paginas-demo"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 401,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_ACCESS_TOKEN",
+                    "message": "Authentication is required.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            },
+            {
+              "deepEquals": {
+                "body": {
+                  "buyer": {
+                    "name": "Ana Torres",
+                    "document": "12345678",
+                    "email": "ana.torres@example.com",
+                    "phone": "999888777"
+                  },
+                  "shipping": {
+                    "address": "Av. Universitaria 1801",
+                    "district": "San Miguel",
+                    "city": "lima",
+                    "reference": "Puerta principal",
+                    "requestedDate": "2026-10-01",
+                    "methodCode": "standard"
+                  },
+                  "payment": {
+                    "brand": "visa",
+                    "lastFour": "4242"
+                  },
+                  "items": [
+                    {
+                      "productId": 101,
+                      "quantity": 2
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 201,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 1001,
+                    "orderNumber": "EP-20260917-A4B10001",
+                    "status": "PENDING",
+                    "buyer": {
+                      "name": "Ana Torres",
+                      "email": "ana.torres@example.com"
+                    },
+                    "shipping": {
+                      "methodName": "Envío estándar",
+                      "requestedDate": "2026-10-01"
+                    },
+                    "items": [
+                      {
+                        "productId": 101,
+                        "title": "El viejo y el mar",
+                        "unitPrice": "42.00",
+                        "quantity": 2,
+                        "lineTotal": "84.00"
+                      }
+                    ],
+                    "subtotal": "84.00",
+                    "shippingCost": "10.00",
+                    "total": "94.00",
+                    "payment": {
+                      "brand": "visa",
+                      "lastFour": "4242",
+                      "status": "SIMULATED_APPROVED"
+                    },
+                    "createdAt": "2026-09-17T01:00:00.000Z"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            },
+            {
+              "deepEquals": {
+                "body": {
+                  "buyer": {
+                    "name": "Ana Torres",
+                    "document": "12345678",
+                    "email": "ana.torres@example.com",
+                    "phone": "999888777"
+                  },
+                  "shipping": {
+                    "address": "Av. Universitaria 1801",
+                    "district": "San Miguel",
+                    "city": "lima",
+                    "reference": "Puerta principal",
+                    "requestedDate": "2026-10-01",
+                    "methodCode": "standard"
+                  },
+                  "payment": {
+                    "brand": "visa",
+                    "lastFour": "4242"
+                  },
+                  "items": []
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 422,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "The submitted data is invalid.",
+                    "details": [
+                      {
+                        "field": "items",
+                        "message": "Add at least one product."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            },
+            {
+              "deepEquals": {
+                "body": {
+                  "buyer": {
+                    "name": "Ana Torres",
+                    "document": "12345678",
+                    "email": "ana.torres@example.com",
+                    "phone": "999888777"
+                  },
+                  "shipping": {
+                    "address": "Av. Universitaria 1801",
+                    "district": "San Miguel",
+                    "city": "lima",
+                    "reference": "Puerta principal",
+                    "requestedDate": "2026-10-01",
+                    "methodCode": "standard"
+                  },
+                  "payment": {
+                    "brand": "visa",
+                    "lastFour": "4242"
+                  },
+                  "items": [
+                    {
+                      "productId": 105,
+                      "quantity": 3
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 409,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "INSUFFICIENT_STOCK",
+                    "message": "Insufficient stock for El principito.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            },
+            {
+              "deepEquals": {
+                "body": {
+                  "buyer": {
+                    "name": "Ana Torres",
+                    "document": "12345678",
+                    "email": "ana.torres@example.com",
+                    "phone": "999888777"
+                  },
+                  "shipping": {
+                    "address": "Av. Universitaria 1801",
+                    "district": "San Miguel",
+                    "city": "lima",
+                    "reference": "Puerta principal",
+                    "requestedDate": "2026-10-01",
+                    "methodCode": "standard"
+                  },
+                  "payment": {
+                    "brand": "visa",
+                    "lastFour": "4242"
+                  },
+                  "items": [
+                    {
+                      "productId": 999,
+                      "quantity": 1
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 404,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "PRODUCT_NOT_AVAILABLE",
+                    "message": "A requested product is not available.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/orders/mine"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 1001,
+                      "orderNumber": "EP-20260917-A4B10001",
+                      "status": "PENDING",
+                      "createdAt": "2026-09-17T01:00:00.000Z",
+                      "total": 94,
+                      "subtotal": 84,
+                      "shippingCost": 10,
+                      "shippingMethodName": "Envío estándar",
+                      "requestedDeliveryDate": "2026-10-01",
+                      "items": [
+                        {
+                          "productId": 101,
+                          "title": "El viejo y el mar",
+                          "unitPrice": 42,
+                          "quantity": 2,
+                          "lineTotal": 84
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
+                "path": "/api/v1/orders/1001"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": true,
+                  "data": {
+                    "id": 1001,
+                    "orderNumber": "EP-20260917-A4B10001",
+                    "status": "PENDING",
+                    "createdAt": "2026-09-17T01:00:00.000Z",
+                    "total": 94,
+                    "subtotal": 84,
+                    "shippingCost": 10,
+                    "shippingMethodName": "Envío estándar",
+                    "requestedDeliveryDate": "2026-10-01",
+                    "items": [
+                      {
+                        "productId": 101,
+                        "title": "El viejo y el mar",
+                        "unitPrice": 42,
+                        "quantity": 2,
+                        "lineTotal": 84
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET"
+              }
+            },
+            {
+              "matches": {
+                "path": "^/api/v1/orders/[^/]+$"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 404,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "ORDER_NOT_FOUND",
+                    "message": "Order not found.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/auth/register"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 400,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "MOCK_SCENARIO_NOT_CONFIGURED",
+                    "message": "Use a request documented in the Postman collection.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "POST",
+                "path": "/api/v1/orders"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 400,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "MOCK_SCENARIO_NOT_CONFIGURED",
+                    "message": "Use a request documented in the Postman collection.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 404,
+                "headers": {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Access-Control-Allow-Origin": "http://localhost:5173",
+                  "Access-Control-Allow-Credentials": "true",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Accept, Content-Type, Authorization, x-csrf-token",
+                  "Vary": "Origin"
+                },
+                "body": {
+                  "success": false,
+                  "error": {
+                    "code": "ROUTE_NOT_FOUND",
+                    "message": "The requested route was not found.",
+                    "details": []
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

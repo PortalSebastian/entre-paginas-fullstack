@@ -1,0 +1,369 @@
+{
+  "herramienta": "Newman",
+  "versiones": {
+    "mountebank": "2.9.1",
+    "newman": "6.2.2"
+  },
+  "comando": "npm test",
+  "baseUrl": "http://localhost:3001/api/v1",
+  "estadisticas": {
+    "iterations": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "items": {
+      "total": 42,
+      "pending": 0,
+      "failed": 0
+    },
+    "scripts": {
+      "total": 42,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequests": {
+      "total": 42,
+      "pending": 0,
+      "failed": 0
+    },
+    "requests": {
+      "total": 42,
+      "pending": 0,
+      "failed": 0
+    },
+    "tests": {
+      "total": 42,
+      "pending": 0,
+      "failed": 0
+    },
+    "assertions": {
+      "total": 190,
+      "pending": 0,
+      "failed": 0
+    },
+    "testScripts": {
+      "total": 42,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequestScripts": {
+      "total": 0,
+      "pending": 0,
+      "failed": 0
+    }
+  },
+  "tiempos": {
+    "responseAverage": 17.619047619047624,
+    "responseMin": 8,
+    "responseMax": 37,
+    "responseSd": 5.122092117914232,
+    "dnsAverage": 0,
+    "dnsMin": 0,
+    "dnsMax": 0,
+    "dnsSd": 0,
+    "firstByteAverage": 0,
+    "firstByteMin": 0,
+    "firstByteMax": 0,
+    "firstByteSd": 0,
+    "started": 1789609284555,
+    "completed": 1789609288275
+  },
+  "fallos": [],
+  "solicitudes": [
+    {
+      "nombre": "Salud de la API",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Obtener token CSRF",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Preflight del navegador",
+      "metodo": "OPTIONS",
+      "estado": 204,
+      "verificaciones": 3,
+      "fallos": 0
+    },
+    {
+      "nombre": "Listar categorías",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Listar métodos de envío",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Listar los seis libros",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Filtrar categoría men",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Filtrar categoría women",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Filtrar categoría kids",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Categoría inexistente",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Buscar por título",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Buscar por autor",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Búsqueda sin coincidencias",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Búsqueda sin término",
+      "metodo": "GET",
+      "estado": 422,
+      "verificaciones": 6,
+      "fallos": 0
+    },
+    {
+      "nombre": "Consultar libro 101",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Consultar libro inexistente",
+      "metodo": "GET",
+      "estado": 404,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Registro correcto",
+      "metodo": "POST",
+      "estado": 201,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Correo ya registrado",
+      "metodo": "POST",
+      "estado": 409,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Registro sin aceptar términos",
+      "metodo": "POST",
+      "estado": 422,
+      "verificaciones": 6,
+      "fallos": 0
+    },
+    {
+      "nombre": "Login sin token CSRF",
+      "metodo": "POST",
+      "estado": 403,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Login con token CSRF inválido",
+      "metodo": "POST",
+      "estado": 403,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Login sin credenciales",
+      "metodo": "POST",
+      "estado": 422,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Login con contraseña incorrecta",
+      "metodo": "POST",
+      "estado": 401,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Login correcto",
+      "metodo": "POST",
+      "estado": 200,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Consultar perfil autenticado",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Perfil sin autenticación",
+      "metodo": "GET",
+      "estado": 401,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Perfil con token inválido",
+      "metodo": "GET",
+      "estado": 401,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Renovar sesión",
+      "metodo": "POST",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Crear pedido como cliente",
+      "metodo": "POST",
+      "estado": 201,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Crear pedido como invitado",
+      "metodo": "POST",
+      "estado": 201,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Pedido sin productos",
+      "metodo": "POST",
+      "estado": 422,
+      "verificaciones": 6,
+      "fallos": 0
+    },
+    {
+      "nombre": "Pedido con stock insuficiente",
+      "metodo": "POST",
+      "estado": 409,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Pedido con producto inexistente",
+      "metodo": "POST",
+      "estado": 404,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Pedido con token inválido",
+      "metodo": "POST",
+      "estado": 401,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Listar pedidos propios",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Consultar pedido propio",
+      "metodo": "GET",
+      "estado": 200,
+      "verificaciones": 4,
+      "fallos": 0
+    },
+    {
+      "nombre": "Pedido ajeno o inexistente",
+      "metodo": "GET",
+      "estado": 404,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Pedidos sin autenticación",
+      "metodo": "GET",
+      "estado": 401,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Cerrar sesión",
+      "metodo": "POST",
+      "estado": 204,
+      "verificaciones": 3,
+      "fallos": 0
+    },
+    {
+      "nombre": "Renovar sesión sin cookie",
+      "metodo": "POST",
+      "estado": 401,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Ruta no definida",
+      "metodo": "GET",
+      "estado": 404,
+      "verificaciones": 5,
+      "fallos": 0
+    },
+    {
+      "nombre": "Pedido fuera del escenario documentado",
+      "metodo": "POST",
+      "estado": 400,
+      "verificaciones": 5,
+      "fallos": 0
+    }
+  ]
+}

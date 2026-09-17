@@ -1,0 +1,16 @@
+{
+  "name": "entre-paginas-actividad4",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "mb start --port 2525 --configfile imposters.json --localOnly --nologfile",
+    "test": "newman run postman/Entre-Paginas.postman_collection.json -e postman/Local.postman_environment.json --reporters cli,json --reporter-json-export reports/newman-report.json"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "mountebank": "2.9.1",
+    "newman": "6.2.2"
+  }
+}

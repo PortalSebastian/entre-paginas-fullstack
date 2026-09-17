@@ -1,0 +1,1990 @@
+{
+  "info": {
+    "name": "Entre Páginas - Actividad 4 - Grupo 1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección de aceptación de los stubs Mountebank. Ejecutar todas las carpetas en orden. Datos ficticios y respuestas estáticas sin persistencia. No ejecutar contra la API real."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001/api/v1"
+    },
+    {
+      "key": "csrfToken",
+      "value": ""
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Preparación",
+      "item": [
+        {
+          "name": "Salud de la API",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Escenario fijo: Salud de la API. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Servicio disponible', () => { pm.expect(payload.data.status).to.eql('ok'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Obtener token CSRF",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/csrf",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "csrf"
+              ]
+            },
+            "description": "Escenario fijo: Obtener token CSRF. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Token de demostración', () => { pm.expect(payload.data.csrfToken).to.eql('csrf-entre-paginas-demo'); });",
+                  "pm.collectionVariables.set('csrfToken', payload.data.csrfToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Preflight del navegador",
+          "request": {
+            "method": "OPTIONS",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:5173"
+              },
+              {
+                "key": "Access-Control-Request-Method",
+                "value": "GET"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Escenario fijo: Preflight del navegador. Estado esperado 204."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 204', () => pm.response.to.have.status(204));",
+                  "pm.test('Respuesta sin cuerpo', () => pm.expect(pm.response.text()).to.eql(''));",
+                  "pm.test('CORS del frontend', () => { pm.expect(pm.response.headers.get('Access-Control-Allow-Origin')).to.eql('http://localhost:5173'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 Catálogo",
+      "item": [
+        {
+          "name": "Listar categorías",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            },
+            "description": "Escenario fijo: Listar categorías. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Categorías del proyecto', () => { pm.expect(payload.data.map(x => x.slug)).to.eql(['men', 'women', 'kids']); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar métodos de envío",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/shipping-methods",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "shipping-methods"
+              ]
+            },
+            "description": "Escenario fijo: Listar métodos de envío. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Precios de envío', () => { pm.expect(payload.data.map(x => x.price)).to.eql([10, 18, 0]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar los seis libros",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Escenario fijo: Listar los seis libros. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Catálogo y contrato', () => { pm.expect(payload.data).to.have.lengthOf(6); payload.data.forEach(x => { pm.expect(x).to.have.all.keys('id','title','author','price','category','genre','format','shortDescription','description','cover','stock'); pm.expect(x.price).to.be.a('number'); }); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtrar categoría men",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products?category=men",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "men"
+                }
+              ]
+            },
+            "description": "Escenario fijo: Filtrar categoría men. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Libros de la categoría', () => { pm.expect(payload.data.map(x => x.id)).to.eql([101, 102]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtrar categoría women",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products?category=women",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "women"
+                }
+              ]
+            },
+            "description": "Escenario fijo: Filtrar categoría women. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Libros de la categoría', () => { pm.expect(payload.data.map(x => x.id)).to.eql([103, 104]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtrar categoría kids",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products?category=kids",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "kids"
+                }
+              ]
+            },
+            "description": "Escenario fijo: Filtrar categoría kids. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Libros de la categoría', () => { pm.expect(payload.data.map(x => x.id)).to.eql([105, 106]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Categoría inexistente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products?category=desconocida",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "desconocida"
+                }
+              ]
+            },
+            "description": "Escenario fijo: Categoría inexistente. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Sin resultados', () => { pm.expect(payload.data).to.eql([]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Buscar por título",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/search?q=1984",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "1984"
+                }
+              ]
+            },
+            "description": "Escenario fijo: Buscar por título. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Libro encontrado', () => { pm.expect(payload.data.map(x => x.id)).to.eql([102]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Buscar por autor",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/search?q=Orwell",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "Orwell"
+                }
+              ]
+            },
+            "description": "Escenario fijo: Buscar por autor. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Autor encontrado', () => { pm.expect(payload.data[0].author).to.eql('George Orwell'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Búsqueda sin coincidencias",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/search?q=zzzz",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "zzzz"
+                }
+              ]
+            },
+            "description": "Escenario fijo: Búsqueda sin coincidencias. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Sin resultados', () => { pm.expect(payload.data).to.eql([]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Búsqueda sin término",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "search"
+              ]
+            },
+            "description": "Escenario fijo: Búsqueda sin término. Estado esperado 422."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 422', () => pm.response.to.have.status(422));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('VALIDATION_ERROR'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });",
+                  "pm.test('Campo q requerido', () => { pm.expect(payload.error.details[0].field).to.eql('q'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar libro 101",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/101",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "101"
+              ]
+            },
+            "description": "Escenario fijo: Consultar libro 101. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Precio y título originales', () => { pm.expect(payload.data.title).to.eql('El viejo y el mar'); pm.expect(payload.data.price).to.eql(42); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar libro inexistente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "999"
+              ]
+            },
+            "description": "Escenario fijo: Consultar libro inexistente. Estado esperado 404."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('PRODUCT_NOT_FOUND'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 Autenticación",
+      "item": [
+        {
+          "name": "Registro correcto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Escenario fijo: Registro correcto. Estado esperado 201.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Ana\",\n  \"lastName\": \"Torres\",\n  \"email\": \"ana.torres@example.com\",\n  \"phone\": \"999888777\",\n  \"birthDate\": \"1998-04-15\",\n  \"readingPreference\": \"Narrativa\",\n  \"newsletterOptIn\": true,\n  \"password\": \"Lectura2026!\",\n  \"termsAccepted\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Usuario público sin contraseña', () => { pm.expect(payload.data.email).to.eql('ana.torres@example.com'); pm.expect(payload.data.role).to.eql('CUSTOMER'); pm.expect(payload.data).not.to.have.property('password'); pm.expect(payload.data).not.to.have.property('passwordHash'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Correo ya registrado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Escenario fijo: Correo ya registrado. Estado esperado 409.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Ana\",\n  \"lastName\": \"Torres\",\n  \"email\": \"registrado@example.com\",\n  \"phone\": \"999888777\",\n  \"birthDate\": \"1998-04-15\",\n  \"readingPreference\": \"Narrativa\",\n  \"newsletterOptIn\": true,\n  \"password\": \"Lectura2026!\",\n  \"termsAccepted\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('EMAIL_ALREADY_REGISTERED'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Registro sin aceptar términos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Escenario fijo: Registro sin aceptar términos. Estado esperado 422.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Ana\",\n  \"lastName\": \"Torres\",\n  \"email\": \"ana.torres@example.com\",\n  \"phone\": \"999888777\",\n  \"birthDate\": \"1998-04-15\",\n  \"readingPreference\": \"Narrativa\",\n  \"newsletterOptIn\": true,\n  \"password\": \"Lectura2026!\",\n  \"termsAccepted\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 422', () => pm.response.to.have.status(422));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('VALIDATION_ERROR'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });",
+                  "pm.test('Términos requeridos', () => { pm.expect(payload.error.details[0].field).to.eql('termsAccepted'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login sin token CSRF",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Escenario fijo: Login sin token CSRF. Estado esperado 403.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ana.torres@example.com\",\n  \"password\": \"Lectura2026!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('CSRF_TOKEN_MISSING'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login con token CSRF inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "incorrecto"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Escenario fijo: Login con token CSRF inválido. Estado esperado 403.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ana.torres@example.com\",\n  \"password\": \"Lectura2026!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('CSRF_TOKEN_INVALID'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login sin credenciales",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Escenario fijo: Login sin credenciales. Estado esperado 422.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 422', () => pm.response.to.have.status(422));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('VALIDATION_ERROR'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login con contraseña incorrecta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Escenario fijo: Login con contraseña incorrecta. Estado esperado 401.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ana.torres@example.com\",\n  \"password\": \"Incorrecta2026!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('INVALID_CREDENTIALS'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login correcto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Escenario fijo: Login correcto. Estado esperado 200.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ana.torres@example.com\",\n  \"password\": \"Lectura2026!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Sesión de demostración', () => { pm.expect(payload.data.accessToken).to.eql('access-entre-paginas-demo'); pm.expect(payload.data.user.id).to.eql(1); });",
+                  "pm.test('Cookie de renovación', () => { pm.expect(pm.response.headers.get('Set-Cookie')).to.include('refresh_token=refresh-entre-paginas-demo'); });",
+                  "pm.collectionVariables.set('accessToken', payload.data.accessToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar perfil autenticado",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Escenario fijo: Consultar perfil autenticado. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Identidad de la sesión', () => { pm.expect(payload.data.email).to.eql('ana.torres@example.com'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Perfil sin autenticación",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Escenario fijo: Perfil sin autenticación. Estado esperado 401."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('AUTHENTICATION_REQUIRED'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Perfil con token inválido",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer invalido"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Escenario fijo: Perfil con token inválido. Estado esperado 401."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('INVALID_ACCESS_TOKEN'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Renovar sesión",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            },
+            "description": "Escenario fijo: Renovar sesión. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Token renovado simulado', () => { pm.expect(payload.data.accessToken).to.eql('access-entre-paginas-demo'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 Pedidos",
+      "item": [
+        {
+          "name": "Crear pedido como cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Escenario fijo: Crear pedido como cliente. Estado esperado 201.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyer\": {\n    \"name\": \"Ana Torres\",\n    \"document\": \"12345678\",\n    \"email\": \"ana.torres@example.com\",\n    \"phone\": \"999888777\"\n  },\n  \"shipping\": {\n    \"address\": \"Av. Universitaria 1801\",\n    \"district\": \"San Miguel\",\n    \"city\": \"lima\",\n    \"reference\": \"Puerta principal\",\n    \"requestedDate\": \"2026-10-01\",\n    \"methodCode\": \"standard\"\n  },\n  \"payment\": {\n    \"brand\": \"visa\",\n    \"lastFour\": \"4242\"\n  },\n  \"items\": [\n    {\n      \"productId\": 101,\n      \"quantity\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Pedido y pago simulado', () => { pm.expect(payload.data.id).to.eql(1001); pm.expect(payload.data.status).to.eql('PENDING'); pm.expect(payload.data.payment.status).to.eql('SIMULATED_APPROVED'); });",
+                  "pm.test('Importes del contrato y cálculo', () => { pm.expect(payload.data.total).to.eql('94.00'); pm.expect(payload.data.subtotal).to.eql('84.00'); pm.expect(payload.data.shippingCost).to.eql('10.00'); pm.expect(Number(payload.data.total)).to.eql(Number(payload.data.subtotal) + Number(payload.data.shippingCost)); pm.expect(Number(payload.data.items[0].lineTotal)).to.eql(Number(payload.data.items[0].unitPrice) * payload.data.items[0].quantity); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear pedido como invitado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Escenario fijo: Crear pedido como invitado. Estado esperado 201.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyer\": {\n    \"name\": \"Ana Torres\",\n    \"document\": \"12345678\",\n    \"email\": \"ana.torres@example.com\",\n    \"phone\": \"999888777\"\n  },\n  \"shipping\": {\n    \"address\": \"Av. Universitaria 1801\",\n    \"district\": \"San Miguel\",\n    \"city\": \"lima\",\n    \"reference\": \"Puerta principal\",\n    \"requestedDate\": \"2026-10-01\",\n    \"methodCode\": \"standard\"\n  },\n  \"payment\": {\n    \"brand\": \"visa\",\n    \"lastFour\": \"4242\"\n  },\n  \"items\": [\n    {\n      \"productId\": 101,\n      \"quantity\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Compra de invitado permitida', () => { pm.expect(payload.data.total).to.eql('94.00'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pedido sin productos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Escenario fijo: Pedido sin productos. Estado esperado 422.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyer\": {\n    \"name\": \"Ana Torres\",\n    \"document\": \"12345678\",\n    \"email\": \"ana.torres@example.com\",\n    \"phone\": \"999888777\"\n  },\n  \"shipping\": {\n    \"address\": \"Av. Universitaria 1801\",\n    \"district\": \"San Miguel\",\n    \"city\": \"lima\",\n    \"reference\": \"Puerta principal\",\n    \"requestedDate\": \"2026-10-01\",\n    \"methodCode\": \"standard\"\n  },\n  \"payment\": {\n    \"brand\": \"visa\",\n    \"lastFour\": \"4242\"\n  },\n  \"items\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 422', () => pm.response.to.have.status(422));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('VALIDATION_ERROR'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });",
+                  "pm.test('Carrito requerido', () => { pm.expect(payload.error.details[0].field).to.eql('items'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pedido con stock insuficiente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Escenario fijo: Pedido con stock insuficiente. Estado esperado 409.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyer\": {\n    \"name\": \"Ana Torres\",\n    \"document\": \"12345678\",\n    \"email\": \"ana.torres@example.com\",\n    \"phone\": \"999888777\"\n  },\n  \"shipping\": {\n    \"address\": \"Av. Universitaria 1801\",\n    \"district\": \"San Miguel\",\n    \"city\": \"lima\",\n    \"reference\": \"Puerta principal\",\n    \"requestedDate\": \"2026-10-01\",\n    \"methodCode\": \"standard\"\n  },\n  \"payment\": {\n    \"brand\": \"visa\",\n    \"lastFour\": \"4242\"\n  },\n  \"items\": [\n    {\n      \"productId\": 105,\n      \"quantity\": 3\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('INSUFFICIENT_STOCK'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pedido con producto inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Escenario fijo: Pedido con producto inexistente. Estado esperado 404.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyer\": {\n    \"name\": \"Ana Torres\",\n    \"document\": \"12345678\",\n    \"email\": \"ana.torres@example.com\",\n    \"phone\": \"999888777\"\n  },\n  \"shipping\": {\n    \"address\": \"Av. Universitaria 1801\",\n    \"district\": \"San Miguel\",\n    \"city\": \"lima\",\n    \"reference\": \"Puerta principal\",\n    \"requestedDate\": \"2026-10-01\",\n    \"methodCode\": \"standard\"\n  },\n  \"payment\": {\n    \"brand\": \"visa\",\n    \"lastFour\": \"4242\"\n  },\n  \"items\": [\n    {\n      \"productId\": 999,\n      \"quantity\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('PRODUCT_NOT_AVAILABLE'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pedido con token inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer invalido"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Escenario fijo: Pedido con token inválido. Estado esperado 401.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyer\": {\n    \"name\": \"Ana Torres\",\n    \"document\": \"12345678\",\n    \"email\": \"ana.torres@example.com\",\n    \"phone\": \"999888777\"\n  },\n  \"shipping\": {\n    \"address\": \"Av. Universitaria 1801\",\n    \"district\": \"San Miguel\",\n    \"city\": \"lima\",\n    \"reference\": \"Puerta principal\",\n    \"requestedDate\": \"2026-10-01\",\n    \"methodCode\": \"standard\"\n  },\n  \"payment\": {\n    \"brand\": \"visa\",\n    \"lastFour\": \"4242\"\n  },\n  \"items\": [\n    {\n      \"productId\": 101,\n      \"quantity\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('INVALID_ACCESS_TOKEN'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar pedidos propios",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/mine",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "mine"
+              ]
+            },
+            "description": "Escenario fijo: Listar pedidos propios. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Pedido de la cuenta', () => { pm.expect(payload.data).to.have.lengthOf(1); pm.expect(payload.data[0].total).to.eql(94); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar pedido propio",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/1001",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "1001"
+              ]
+            },
+            "description": "Escenario fijo: Consultar pedido propio. Estado esperado 200."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(true));",
+                  "pm.test('Detalle del pedido', () => { pm.expect(payload.data.id).to.eql(1001); pm.expect(payload.data.items[0].unitPrice).to.eql(42); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pedido ajeno o inexistente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/9999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "9999"
+              ]
+            },
+            "description": "Escenario fijo: Pedido ajeno o inexistente. Estado esperado 404."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('ORDER_NOT_FOUND'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pedidos sin autenticación",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/mine",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "mine"
+              ]
+            },
+            "description": "Escenario fijo: Pedidos sin autenticación. Estado esperado 401."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('AUTHENTICATION_REQUIRED'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05 Cierre y límites",
+      "item": [
+        {
+          "name": "Cerrar sesión",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Escenario fijo: Cerrar sesión. Estado esperado 204."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 204', () => pm.response.to.have.status(204));",
+                  "pm.test('Respuesta sin cuerpo', () => pm.expect(pm.response.text()).to.eql(''));",
+                  "pm.test('Cookie eliminada', () => { pm.expect(pm.response.headers.get('Set-Cookie')).to.include('Max-Age=0'); });",
+                  "pm.collectionVariables.set('accessToken', '');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Renovar sesión sin cookie",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            },
+            "description": "Escenario fijo: Renovar sesión sin cookie. Estado esperado 401."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('INVALID_REFRESH_TOKEN'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ruta no definida",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/no-existe",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "no-existe"
+              ]
+            },
+            "description": "Escenario fijo: Ruta no definida. Estado esperado 404."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('ROUTE_NOT_FOUND'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pedido fuera del escenario documentado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Escenario fijo: Pedido fuera del escenario documentado. Estado esperado 400.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyer\": {\n    \"name\": \"Ana Torres\",\n    \"document\": \"12345678\",\n    \"email\": \"ana.torres@example.com\",\n    \"phone\": \"999888777\"\n  },\n  \"shipping\": {\n    \"address\": \"Av. Universitaria 1801\",\n    \"district\": \"San Miguel\",\n    \"city\": \"lima\",\n    \"reference\": \"Puerta principal\",\n    \"requestedDate\": \"2026-10-01\",\n    \"methodCode\": \"standard\"\n  },\n  \"payment\": {\n    \"brand\": \"visa\",\n    \"lastFour\": \"4242\"\n  },\n  \"items\": [\n    {\n      \"productId\": 101,\n      \"quantity\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Respuesta JSON', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+                  "const payload = pm.response.json();",
+                  "pm.test('Indicador success', () => pm.expect(payload.success).to.eql(false));",
+                  "pm.test('Código de error', () => pm.expect(payload.error.code).to.eql('MOCK_SCENARIO_NOT_CONFIGURED'));",
+                  "pm.test('Detalle del error', () => { pm.expect(payload.error.message).to.be.a('string').and.not.empty; pm.expect(payload.error.details).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
