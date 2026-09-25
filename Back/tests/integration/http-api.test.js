@@ -241,6 +241,33 @@ test('the identity used for ownership comes from the token, not from the request
   assert.equal(calls.ownOrdersUser.id, 1);
 });
 
+// --- Detras del proxy inverso (Nginx) ---------------------------------------
+// Nginx llama a la API desde loopback y pasa la IP real en X-Forwarded-For. El
+// limite de intentos debe aplicarse por cliente, no a todos a la vez.
+
+test('behind the proxy, rate limiting is per client IP from X-Forwarded-For', async () => {
+  const { app } = buildApp();
+  const agent = request.agent(app);
+  const login = async (clientIp) => {
+    // El login rota el secreto CSRF: cada intento pide un token vigente.
+    const { body } = await agent.get('/api/v1/csrf').expect(200);
+    return agent
+      .post('/api/v1/auth/login')
+      .set('X-Forwarded-For', clientIp)
+      .set('x-csrf-token', body.data.csrfToken)
+      .send({ email: 'customer@example.org', password: 'secreto8' });
+  };
+
+  for (let attempt = 1; attempt <= 30; attempt += 1) {
+    assert.equal((await login('203.0.113.10')).status, 200, `attempt ${attempt}`);
+  }
+  const limited = await login('203.0.113.10');
+  assert.equal(limited.status, 429);
+  assert.equal(limited.body.error.code, 'AUTH_RATE_LIMITED');
+
+  assert.equal((await login('203.0.113.20')).status, 200, 'another client keeps its own quota');
+});
+
 // --- Prevencion CSRF mediante tokens ---------------------------------------
 // Los cuatro casos que exige la rubrica: mutacion legitima aceptada, peticion
 // sin token rechazada, token alterado o de otro contexto rechazado, y lectura

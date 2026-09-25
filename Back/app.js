@@ -9,6 +9,10 @@ import { createApiRouter } from './routes/index.js';
 export function createApp({ services, User, config }) {
   const app = express();
   app.disable('x-powered-by');
+  // En produccion la API corre detras de Nginx en la misma maquina (un solo
+  // salto). Confiar en ese salto hace que req.ip salga de X-Forwarded-For
+  // (rate limit por cliente, no global) y req.secure de X-Forwarded-Proto.
+  app.set('trust proxy', 1);
   app.use(helmet());
   app.use(cors({ origin: config.frontendOrigin, credentials: true }));
   app.use(express.json({ limit: '100kb' }));
