@@ -33,7 +33,7 @@ jobs:
         run: |
           npm ci
           npm test
-       - name: Verificar identidad OIDC
+      -  name: Verificar identidad OIDC
          run: |
            respuesta=$(curl -fsS \
              -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
