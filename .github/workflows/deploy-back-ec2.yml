@@ -33,6 +33,13 @@ jobs:
         run: |
           npm ci
           npm test
+          
+         - name: Verificar identidad OIDC
+        run: |
+       respuesta=$(curl -fsS \
+         -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+         "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com")
+       python3 -c 'import json,base64,sys; t=json.load(sys.stdin)["value"]; p=t.split(".")[1]; d=json.loads(base64.urlsafe_b64decode(p+"="*(-len(p)%4))); print("aud:",d["aud"]); print("sub:",d["sub"])' <<< "$respuesta"
 
       - name: Obtener credenciales temporales de AWS
         uses: aws-actions/configure-aws-credentials@v6.3.0
