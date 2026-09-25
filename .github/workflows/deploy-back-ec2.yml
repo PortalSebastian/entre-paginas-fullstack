@@ -1,0 +1,100 @@
+name: Desplegar backend en EC2
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: backend-ec2-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: Back/package-lock.json
+
+      - name: Instalar dependencias y ejecutar pruebas
+        working-directory: Back
+        run: |
+          npm ci
+          npm test
+      -  name: Verificar identidad OIDC
+         run: |
+           respuesta=$(curl -fsS \
+             -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+             "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com")
+           python3 -c 'import json,base64,sys; t=json.load(sys.stdin)["value"]; p=t.split(".")[1]; d=json.loads(base64.urlsafe_b64decode(p+"="*(-len(p)%4))); print("aud:",d["aud"]); print("sub:",d["sub"])' <<< "$respuesta"
+      - name: Obtener credenciales temporales de AWS
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Actualizar EC2 y comprobar el resultado
+        env:
+          EC2_INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
+          BACKEND_PUBLIC_URL: ${{ vars.BACKEND_PUBLIC_URL }}
+        run: |
+          set -euo pipefail
+          : "${EC2_INSTANCE_ID:?Configurar EC2_INSTANCE_ID}"
+          : "${BACKEND_PUBLIC_URL:?Configurar BACKEND_PUBLIC_URL}"
+
+          python3 - <<'PY'
+          import json
+          import os
+          command = (
+              'sudo -u ubuntu -H bash '
+              '/home/ubuntu/deploy-entre-paginas.sh '
+              + os.environ['GITHUB_SHA']
+          )
+          with open('ssm-commands.json', 'w', encoding='utf-8') as file:
+              json.dump({'commands': [command]}, file)
+          PY
+
+          command_id=$(aws ssm send-command \
+            --instance-ids "$EC2_INSTANCE_ID" \
+            --document-name AWS-RunShellScript \
+            --comment "Despliegue Entre Paginas ${GITHUB_SHA}" \
+            --parameters file://ssm-commands.json \
+            --query 'Command.CommandId' --output text)
+          echo "SSM Command ID: $command_id"
+
+          status=Pending
+          for intento in $(seq 1 120); do
+            status=$(aws ssm get-command-invocation \
+              --command-id "$command_id" \
+              --instance-id "$EC2_INSTANCE_ID" \
+              --query 'Status' --output text 2>/dev/null || true)
+            case "$status" in
+              Success|Failed|Cancelled|TimedOut|DeliveryTimedOut|ExecutionTimedOut|Undeliverable|Terminated|InvalidPlatform|AccessDenied)
+                break ;;
+            esac
+            sleep 5
+          done
+
+          aws ssm get-command-invocation \
+            --command-id "$command_id" \
+            --instance-id "$EC2_INSTANCE_ID" \
+            --query '{Status:Status,Output:StandardOutputContent,Error:StandardErrorContent}' \
+            --output json
+          test "$status" = Success
+
+          curl --fail --silent --show-error --retry 6 --retry-delay 5 \
+            "${BACKEND_PUBLIC_URL%/}/api/v1/health"
+          curl --fail --silent --show-error --retry 3 --retry-delay 5 \
+            "${BACKEND_PUBLIC_URL%/}/api/v1/products" > /dev/null
